@@ -5,6 +5,7 @@
 
 package dev.cloudmc.gui.hudeditor.impl.impl;
 
+import dev.cloudmc.feature.mod.Mod;
 import dev.cloudmc.Cloud;
 import dev.cloudmc.feature.mod.impl.ToggleSprintMod;
 import dev.cloudmc.gui.Style;
@@ -26,7 +27,8 @@ public class SprintHud extends HudMod {
     @Override
     public void renderMod(int mouseX, int mouseY) {
         GLHelper.startScale(getX(), getY(), getSize());
-        if (Cloud.INSTANCE.modManager.getMod(getName()).isToggled()) {
+        Mod __mod2 = Cloud.INSTANCE.modManager.getMod(getName());
+            if (__mod2 != null && __mod2.isToggled()) {
             if (isModern()) {
                 if (isBackground()) {
                     Helper2D.drawRoundedRectangle(getX(), getY(), getW(), getH(), 2, Style.getColor(50).getRGB(), 0);
@@ -56,7 +58,8 @@ public class SprintHud extends HudMod {
     @SubscribeEvent
     public void onRender2D(RenderGameOverlayEvent.Pre.Text e) {
         GLHelper.startScale(getX(), getY(), getSize());
-        if (Cloud.INSTANCE.modManager.getMod(getName()).isToggled() && !(Cloud.INSTANCE.mc.currentScreen instanceof HudEditor)) {
+        Mod __mod = Cloud.INSTANCE.modManager.getMod(getName());
+            if (__mod != null && __mod.isToggled() && Cloud.INSTANCE.mc.thePlayer != null && !(Cloud.INSTANCE.mc.currentScreen instanceof HudEditor)) {
             if (isModern()) {
                 if (isBackground()) {
                     Helper2D.drawRoundedRectangle(getX(), getY(), getW(), getH(), 2, 0x50000000, 0);

@@ -86,8 +86,8 @@ public class ModManager {
                 return m;
             }
         }
-
-        return null;
+        // Return a disabled stub instead of null to prevent NPE in HUD renderers
+        return new Mod(name, "", Type.All) {};
     }
 
     /**
