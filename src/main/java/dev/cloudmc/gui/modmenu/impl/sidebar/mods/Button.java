@@ -41,8 +41,8 @@ public class Button {
         this.panel = panel;
         this.x = x;
         this.y = y;
-        this.w = 120;
-        this.h = 80;
+        this.w = 88;
+        this.h = 60;
 
         if (Cloud.INSTANCE.settingManager.getSettingsByMod(mod) != null) {
             int addY = 70;
@@ -117,11 +117,11 @@ public class Button {
 
         if (!getPanel().isAnyButtonOpen()) {
             Helper2D.drawRoundedRectangle(panel.getX() + 5 + x, panel.getY() + panel.getH() + 35 + y, w, h, 2, Style.getColor(40).getRGB(), roundedCorners ? 0 : -1);
-            Helper2D.drawRoundedRectangle(panel.getX() + 5 + x, panel.getY() + panel.getH() + y + 90, w, 25, 2, Style.getColor(50).getRGB(), roundedCorners ? 2 : -1);
+            Helper2D.drawRoundedRectangle(panel.getX() + 5 + x, panel.getY() + panel.getH() + y + 68, w, 22, 2, Style.getColor(50).getRGB(), roundedCorners ? 2 : -1);
 
-            Cloud.INSTANCE.fontHelper.size20.drawString(mod.getName(), panel.getX() + 10 + x, panel.getY() + panel.getH() + y + 97, color);
+            Cloud.INSTANCE.fontHelper.size20.drawString(mod.getName(), panel.getX() + 10 + x, panel.getY() + panel.getH() + y + 74, color);
 
-            Helper2D.drawRoundedRectangle(panel.getX() + 13 + x + 77, panel.getY() + panel.getH() + y + h + 14, 30, 15, 2, Style.getColor(50).getRGB(), roundedCorners ? 0 : -1);
+            Helper2D.drawRoundedRectangle(panel.getX() + 8 + x + 52, panel.getY() + panel.getH() + y + h + 14, 30, 15, 2, Style.getColor(50).getRGB(), roundedCorners ? 0 : -1);
             Helper2D.drawRoundedRectangle(
                     animButton.hasFinished() ?
                             mod.isToggled() ?
@@ -130,7 +130,7 @@ public class Button {
                             panel.getX() + 13 + animButton.getValueI() + x + 77,
                     panel.getY() + panel.getH() + y + h + 14, 15, 15, 2, Style.getColor(70).getRGB(), roundedCorners ? 0 : -1);
 
-            Helper2D.drawPicture(panel.getX() + getX() + getW() / 2 - 12, panel.getY() + panel.getH() + getY() + 45, 35, 35, color, "icon/button/button/" + mod.getName().toLowerCase() + ".png");
+            Helper2D.drawPicture(panel.getX() + getX() + getW() / 2 - 12, panel.getY() + panel.getH() + getY() + 28, 28, 28, color, "icon/button/button/" + mod.getName().toLowerCase() + ".png");
         }
 
         if (open) {

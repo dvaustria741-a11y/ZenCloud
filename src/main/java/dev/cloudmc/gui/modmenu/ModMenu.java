@@ -47,7 +47,7 @@ public class ModMenu extends GuiScreen {
         boolean roundedCorners = Cloud.INSTANCE.optionManager.getOptionByName("Rounded Corners").isCheckToggled();
         int color = Cloud.INSTANCE.optionManager.getOptionByName("Color").getColor().getRGB();
 
-        float max = ResolutionHelper.getHeight() / 2f + 150;
+        float max = ResolutionHelper.getHeight() / 2f + 110;
         animateModMenu.setMax(max).update();
         if(!animateModMenu.hasFinished()) {
             panel.setY(height - animateModMenu.getValueI());

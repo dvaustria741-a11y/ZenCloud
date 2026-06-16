@@ -31,8 +31,8 @@ public class Panel {
     private final String[] sideButtons = {"Mods", "Settings"};
     private final Animate animateSideBar = new Animate();
     private final Animate animateTransition = new Animate();
-    private final ScrollHelper scrollHelperMods = new ScrollHelper(0, 270, 35, 300);
-    private final ScrollHelper scrollHelperOptions = new ScrollHelper(0, 300, 35, 300);
+    private final ScrollHelper scrollHelperMods = new ScrollHelper(0, 200, 35, 230);
+    private final ScrollHelper scrollHelperOptions = new ScrollHelper(0, 230, 35, 230);
     private final TextBox textBox = new TextBox("Search", 0, 0, 150, 20);
     private int x, y, w, h;
     private int offsetX, offsetY;
@@ -42,9 +42,9 @@ public class Panel {
     private Type selectedType = Type.All;
 
     public Panel() {
-        this.x = ResolutionHelper.getWidth() / 2 - 250;
+        this.x = ResolutionHelper.getWidth() / 2 - 190;
         this.y = ResolutionHelper.getHeight() / 2 - 150;
-        this.w = 500;
+        this.w = 380;
         this.h = 30;
         this.offsetX = 0;
         this.offsetY = 0;
@@ -330,7 +330,7 @@ public class Panel {
     }
 
     public void initGui() {
-        setX(ResolutionHelper.getWidth() / 2 - 250);
+        setX(ResolutionHelper.getWidth() / 2 - 190);
     }
 
     /**
