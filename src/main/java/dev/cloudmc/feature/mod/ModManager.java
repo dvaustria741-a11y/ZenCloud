@@ -23,14 +23,14 @@ public class ModManager {
 
     public void init() {
         // ZenCloud combat modules
-        addMod(new KillAuraMod());
+
         addMod(new AutoSoupMod());
         // ZenCloud movement modules
-        addMod(new AutoScaffoldMod());
+
         // ZenCloud utility modules
         addMod(new AntiAFKMod());
         // ZenCloud performance modules
-        addMod(new FpsBoosterMod());
+
         // Original CloudClient modules
         addMod(new ToggleSneakMod());
         addMod(new FpsMod());
