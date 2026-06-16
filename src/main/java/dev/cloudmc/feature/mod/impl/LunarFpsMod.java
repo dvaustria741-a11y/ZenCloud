@@ -25,7 +25,7 @@ public class LunarFpsMod extends Mod {
     private boolean savedFancy;
     private int     savedAO;
     private int     savedMipmap;
-    private boolean savedClouds;
+    private int     savedClouds;
 
     public LunarFpsMod() {
         super("Lunar FPS", "Lunar Client-style FPS optimisations.", Type.Performance);
@@ -45,7 +45,7 @@ public class LunarFpsMod extends Mod {
         savedFancy     = mc.gameSettings.fancyGraphics;
         savedAO        = mc.gameSettings.ambientOcclusion;
         savedMipmap    = mc.gameSettings.mipmapLevels;
-        savedClouds    = mc.gameSettings.clouds;
+        savedClouds    = mc.gameSettings.clouds;  // int in 1.8.9: 0=off,1=fast,2=fancy
         applyProfile();
     }
 
@@ -72,7 +72,7 @@ public class LunarFpsMod extends Mod {
             mc.gameSettings.fancyGraphics = false;
         }
         if (Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "No Clouds").isCheckToggled()) {
-            mc.gameSettings.clouds = false;
+            mc.gameSettings.clouds = 0;
         }
         if (Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "No AO").isCheckToggled()) {
             mc.gameSettings.ambientOcclusion = 0;
@@ -90,21 +90,21 @@ public class LunarFpsMod extends Mod {
                 mc.gameSettings.ambientOcclusion = 0;
                 mc.gameSettings.particleSetting  = 2;
                 mc.gameSettings.mipmapLevels     = 0;
-                mc.gameSettings.clouds           = false;
+                mc.gameSettings.clouds           = 0;
                 break;
             case "Balanced":
                 mc.gameSettings.fancyGraphics    = false;
                 mc.gameSettings.ambientOcclusion = 1;
                 mc.gameSettings.particleSetting  = 1;
                 mc.gameSettings.mipmapLevels     = 2;
-                mc.gameSettings.clouds           = false;
+                mc.gameSettings.clouds           = 0;
                 break;
             case "Quality":
                 mc.gameSettings.fancyGraphics    = true;
                 mc.gameSettings.ambientOcclusion = 2;
                 mc.gameSettings.particleSetting  = 0;
                 mc.gameSettings.mipmapLevels     = 4;
-                mc.gameSettings.clouds           = true;
+                mc.gameSettings.clouds           = 2;
                 break;
         }
         mc.renderGlobal.loadRenderers();
