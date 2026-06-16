@@ -24,7 +24,7 @@ public class FpsBoosterMod extends Mod {
     @Override public void onEnable() {
         super.onEnable();
         savedParticles=mc.gameSettings.particleSetting; savedFancy=mc.gameSettings.fancyGraphics; savedAO=mc.gameSettings.ambientOcclusion;
-        String p=Cloud.INSTANCE.settingManager.getSetting("Profile",this).getCurrentMode();
+        String p=Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Profile").getCurrentMode();
         if("Performance".equals(p)){mc.gameSettings.fancyGraphics=false;mc.gameSettings.ambientOcclusion=0;mc.gameSettings.particleSetting=2;}
         else if("Balanced".equals(p)){mc.gameSettings.fancyGraphics=false;mc.gameSettings.ambientOcclusion=1;mc.gameSettings.particleSetting=1;}
         else{mc.gameSettings.fancyGraphics=true;mc.gameSettings.ambientOcclusion=2;mc.gameSettings.particleSetting=0;}
@@ -38,8 +38,8 @@ public class FpsBoosterMod extends Mod {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.START) return;
-        if(Cloud.INSTANCE.settingManager.getSetting("Limit Particles",this).isCheckToggled()) mc.gameSettings.particleSetting=2;
-        if(Cloud.INSTANCE.settingManager.getSetting("Fast Graphics",this).isCheckToggled()) mc.gameSettings.fancyGraphics=false;
-        if(Cloud.INSTANCE.settingManager.getSetting("No AO",this).isCheckToggled()) mc.gameSettings.ambientOcclusion=0;
+        if(Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Limit Particles").isCheckToggled()) mc.gameSettings.particleSetting=2;
+        if(Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Fast Graphics").isCheckToggled()) mc.gameSettings.fancyGraphics=false;
+        if(Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "No AO").isCheckToggled()) mc.gameSettings.ambientOcclusion=0;
     }
 }

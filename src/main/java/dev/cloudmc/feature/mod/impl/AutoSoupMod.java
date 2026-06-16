@@ -33,7 +33,7 @@ public class AutoSoupMod extends Mod {
             return;
         }
 
-        float threshold = Cloud.INSTANCE.settingManager.getSetting("HP Threshold", this).getCurrentNumber();
+        float threshold = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "HP Threshold").getCurrentNumber();
         if (mc.thePlayer.getHealth() > threshold) return;
 
         int slot = -1;

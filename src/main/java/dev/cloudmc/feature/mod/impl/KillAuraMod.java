@@ -36,11 +36,11 @@ public class KillAuraMod extends Mod {
         if (event.phase != TickEvent.Phase.START) return;
         if (mc.thePlayer == null || mc.theWorld == null) return;
 
-        float range = Cloud.INSTANCE.settingManager.getSetting("Range",  this).getCurrentNumber();
-        float cps   = Cloud.INSTANCE.settingManager.getSetting("CPS",    this).getCurrentNumber();
-        String targetMode = Cloud.INSTANCE.settingManager.getSetting("Target", this).getCurrentMode();
-        boolean focus     = Cloud.INSTANCE.settingManager.getSetting("Focus",     this).isCheckToggled();
-        boolean rotations = Cloud.INSTANCE.settingManager.getSetting("Rotations", this).isCheckToggled();
+        float range = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Range").getCurrentNumber();
+        float cps   = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "CPS").getCurrentNumber();
+        String targetMode = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Target").getCurrentMode();
+        boolean focus     = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Focus").isCheckToggled();
+        boolean rotations = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Rotations").isCheckToggled();
 
         long delay = (long)(1000.0 / cps);
         long now = System.currentTimeMillis();

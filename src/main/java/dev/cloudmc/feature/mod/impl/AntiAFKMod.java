@@ -22,7 +22,7 @@ public class AntiAFKMod extends Mod {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         if (event.phase != TickEvent.Phase.START || mc.thePlayer == null) return;
-        float interval = Cloud.INSTANCE.settingManager.getSetting("Interval", this).getCurrentNumber();
+        float interval = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Interval").getCurrentNumber();
         if (++ticks >= (int)(interval * 20)) {
             ticks = 0;
             mc.thePlayer.rotationYaw += 45 * dir;

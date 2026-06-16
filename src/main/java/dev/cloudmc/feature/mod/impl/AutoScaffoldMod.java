@@ -41,8 +41,8 @@ public class AutoScaffoldMod extends Mod {
         if (event.phase != TickEvent.Phase.START) return;
         if (mc.thePlayer == null || mc.theWorld == null) return;
 
-        float delay = Cloud.INSTANCE.settingManager.getSetting("Delay", this).getCurrentNumber();
-        boolean sneak = Cloud.INSTANCE.settingManager.getSetting("Sneak", this).isCheckToggled();
+        float delay = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Delay").getCurrentNumber();
+        boolean sneak = Cloud.INSTANCE.settingManager.getSettingByModAndName(getName(), "Sneak").isCheckToggled();
         long now = System.currentTimeMillis();
         long actual = (long)delay + (delay>0?(long)((rng.nextDouble()*2-1)*(delay/4)):0);
         if (now - lastPlace < actual) return;
