@@ -31,9 +31,10 @@ public class Panel {
     private final String[] sideButtons = {"Mods", "Settings"};
     private final Animate animateSideBar = new Animate();
     private final Animate animateTransition = new Animate();
-    private final ScrollHelper scrollHelperMods = new ScrollHelper(0, 200, 35, 230);
-    private final ScrollHelper scrollHelperOptions = new ScrollHelper(0, 230, 35, 230);
-    private final TextBox textBox = new TextBox("Search", 0, 0, 150, 20);
+    private final ScrollHelper scrollHelperMods = new ScrollHelper(0, 200, 35, 200);
+    private final ScrollHelper scrollHelperOptions = new ScrollHelper(0, 200, 35, 200);
+    private final TextBox textBox = new TextBox("Search", 0, 0, 110, 20);
+    private int tabScrollX = 0; // horizontal scroll offset for the category tabs
     private int x, y, w, h;
     private int offsetX, offsetY;
     private boolean dragging;
@@ -42,9 +43,9 @@ public class Panel {
     private Type selectedType = Type.All;
 
     public Panel() {
-        this.x = ResolutionHelper.getWidth() / 2 - 190;
-        this.y = ResolutionHelper.getHeight() / 2 - 150;
-        this.w = 380;
+        this.x = ResolutionHelper.getWidth() / 2 - 160;
+        this.y = ResolutionHelper.getHeight() / 2 - 160;
+        this.w = 320;
         this.h = 30;
         this.offsetX = 0;
         this.offsetY = 0;
@@ -111,7 +112,7 @@ public class Panel {
                     buttonList.add(button);
                     buttonCounter++;
                     addButtonX += button.getW() + 3;
-                    if (buttonCounter % 4 == 0) {
+                    if (buttonCounter % 3 == 0) {
                         addButtonX = 0;
                         addButtonY += button.getH() + 3;
                     }
@@ -157,22 +158,28 @@ public class Panel {
         Cloud.INSTANCE.messageHelper.renderMessage();
 
         if (selected == 0) {
-            int offset = 0;
+            // Tab bar - clipped to panel width minus search box, scrollable horizontally
+            int searchW = textBox.getW() + 10;
+            int tabAreaX = x;
+            int tabAreaW = w - searchW;
+            GLHelper.startScissor(tabAreaX, y + h, tabAreaW, 30);
+            int offset = -tabScrollX;
             for (Type type : Type.values()) {
                 String text = type.name();
                 int length = Cloud.INSTANCE.fontHelper.size20.getStringWidth(text);
                 Helper2D.drawRoundedRectangle(
                         x + offset + 5,
                         y + h + 5,
-                        length + 25,
+                        length + 20,
                         20, 2,
                         Style.getColor(selectedType.equals(type) ? 120 : 50).getRGB(),
                         roundedCorners ? 0 : -1
                 );
-                Helper2D.drawPicture(x + offset + 8, y + h + 8, 15, 15, -1, "icon/" + type.getIcon());
-                Cloud.INSTANCE.fontHelper.size20.drawString(text, x + offset + 26, y + h + 11, -1);
-                offset += length + 30;
+                Helper2D.drawPicture(x + offset + 7, y + h + 8, 13, 13, -1, "icon/" + type.getIcon());
+                Cloud.INSTANCE.fontHelper.size20.drawString(text, x + offset + 23, y + h + 11, -1);
+                offset += length + 26;
             }
+            GLHelper.endScissor();
 
             textBox.renderTextBox(x + w - textBox.getW() - 5, y + h + 5, mouseX, mouseY);
 
@@ -274,16 +281,19 @@ public class Panel {
                 index++;
             }
 
-            int offset = 0;
+            int tabOffset = -tabScrollX;
             for (Type type : Type.values()) {
                 String text = type.name();
                 int length = Cloud.INSTANCE.fontHelper.size20.getStringWidth(text);
-                if (MathHelper.withinBox(x + offset + 5, y + h + 5, length + 25, 20, mouseX, mouseY)) {
+                int searchW = textBox.getW() + 10;
+                // Only register click if within the visible tab area (not over search box)
+                if (mouseX < x + w - searchW &&
+                    MathHelper.withinBox(x + tabOffset + 5, y + h + 5, length + 20, 20, mouseX, mouseY)) {
                     selectedType = type;
                     scrollHelperMods.setScrollStep(0);
                     initButtons();
                 }
-                offset += length + 30;
+                tabOffset += length + 26;
             }
 
 
@@ -300,6 +310,14 @@ public class Panel {
             for (Options option : optionsList) {
                 option.mouseClicked(mouseX, mouseY, mouseButton);
             }
+        }
+    }
+
+    public void handleScroll(int mouseX, int mouseY, int delta) {
+        // If hovering the tab bar row, scroll tabs horizontally
+        if (MathHelper.withinBox(x, y + h, w, 30, mouseX, mouseY)) {
+            tabScrollX -= delta * 10;
+            if (tabScrollX < 0) tabScrollX = 0;
         }
     }
 
@@ -330,7 +348,7 @@ public class Panel {
     }
 
     public void initGui() {
-        setX(ResolutionHelper.getWidth() / 2 - 190);
+        setX(ResolutionHelper.getWidth() / 2 - 160);
     }
 
     /**

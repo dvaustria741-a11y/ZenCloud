@@ -88,6 +88,19 @@ public class ModMenu extends GuiScreen {
      */
 
     @Override
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
+        int wheel = org.lwjgl.input.Mouse.getEventDWheel();
+        if (wheel != 0) {
+            panel.handleScroll(
+                org.lwjgl.input.Mouse.getEventX() * width / mc.displayWidth,
+                height - org.lwjgl.input.Mouse.getEventY() * height / mc.displayHeight - 1,
+                wheel > 0 ? 1 : -1
+            );
+        }
+    }
+
+    @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         panel.mouseClicked(mouseX, mouseY, mouseButton);
         if(mouseButton == 0) {

@@ -41,8 +41,8 @@ public class Button {
         this.panel = panel;
         this.x = x;
         this.y = y;
-        this.w = 88;
-        this.h = 60;
+        this.w = 76;
+        this.h = 56;
 
         if (Cloud.INSTANCE.settingManager.getSettingsByMod(mod) != null) {
             int addY = 70;
